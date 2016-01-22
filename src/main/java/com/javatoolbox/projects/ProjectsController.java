@@ -23,6 +23,13 @@ public class ProjectsController {
     @Autowired
     private CategoriesRepository categoriesRepository;
 
+    @RequestMapping(value = "/projects", method = RequestMethod.GET)
+    public String categoryIndex(Model model) {
+        model.addAttribute("projects", projectsRepository.findAllByOrderByNameAsc());
+
+        return "projects/index";
+    }
+
     @RequestMapping(value = "/projects/{projectId}")
     public String projectShow(@PathVariable("projectId") Long projectId, Model model) {
         Project project = projectsRepository.findOne(projectId);
